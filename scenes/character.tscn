@@ -1,0 +1,107 @@
+[gd_scene load_steps=15 format=3 uid="uid://w2jva63rasjr"]
+
+[ext_resource type="Script" path="res://scripts/character.gd" id="1_21jlh"]
+[ext_resource type="Texture2D" uid="uid://c8y16t7who1fw" path="res://assets/SGQ_Dungeon/characters/main/elf.png" id="2_cecso"]
+
+[sub_resource type="GDScript" id="GDScript_0f3dp"]
+script/source = "extends CharacterBody2D
+
+var mouse_on: bool = false
+
+func _mouse_enter() -> void:
+	mouse_on = true
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h3s3n"]
+atlas = ExtResource("2_cecso")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_saqjb"]
+atlas = ExtResource("2_cecso")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66kl1"]
+atlas = ExtResource("2_cecso")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3uowo"]
+atlas = ExtResource("2_cecso")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ppgrs"]
+atlas = ExtResource("2_cecso")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1kmc"]
+atlas = ExtResource("2_cecso")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qhue"]
+atlas = ExtResource("2_cecso")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r733v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h3s3n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_saqjb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_66kl1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3uowo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ppgrs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1kmc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qhue")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2hsnj"]
+size = Vector2(16, 16)
+
+[sub_resource type="Curve" id="Curve_0mjly"]
+_data = [Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="CurveTexture" id="CurveTexture_fb4t7"]
+curve = SubResource("Curve_0mjly")
+
+[node name="Character" type="Node2D"]
+position = Vector2(8, -8)
+script = ExtResource("1_21jlh")
+
+[node name="Body" type="CharacterBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+safe_margin = 0.001
+script = SubResource("GDScript_0f3dp")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Body"]
+sprite_frames = SubResource("SpriteFrames_r733v")
+animation = &"idle"
+
+[node name="Collider" type="CollisionShape2D" parent="Body"]
+shape = SubResource("RectangleShape2D_2hsnj")
+
+[node name="Sprite2D" type="Sprite2D" parent="Body"]
+position = Vector2(1.43051e-06, 8)
+scale = Vector2(0.0625, 1)
+texture = SubResource("CurveTexture_fb4t7")

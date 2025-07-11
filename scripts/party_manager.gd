@@ -9,9 +9,9 @@ var movement_tween: Tween
 var selected_char: Character
 var level: Level
 
-func move_char(pos: Vector2i, level: Level) -> void:
-	var tiles: TileMapLayer = level.find_child("Level") # TileMap containg room tiles
-	var floor = level.ATLAS_Ids["floor"] # The Atlas id of floor tiles
+func move_char(pos: Vector2i, map: Level) -> void:
+	var tiles: TileMapLayer = map.find_child("Level") # TileMap containg room tiles
+	var floor = map.ATLAS_IDs["floor"] # The Atlas id of floor tiles
 	var tile_coord = tiles.local_to_map(tiles.to_local(pos)) # Coordinates of selected tile
 	var tile_type = tiles.get_cell_source_id(tile_coord) # Atlas id of selected tile
 	
@@ -42,4 +42,6 @@ func _ready() -> void:
 	add_party_member()
 	var b = add_party_member()
 	b.c_name = "Steve"
+	b.is_magic = true
 	b.position = Vector2i(32, 32)
+	b.update_stats()

@@ -28,5 +28,4 @@ const NUM_TO_ATLAS: Dictionary = {
 	6: "b_right_wall",  
 	7: "floor" 
 }
-
 # TODO: Much to be done here maybe

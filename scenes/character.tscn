@@ -1,16 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://w2jva63rasjr"]
+[gd_scene load_steps=13 format=3 uid="uid://w2jva63rasjr"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_21jlh"]
 [ext_resource type="Texture2D" uid="uid://c8y16t7who1fw" path="res://assets/SGQ_Dungeon/characters/main/elf.png" id="2_cecso"]
-
-[sub_resource type="GDScript" id="GDScript_0f3dp"]
-script/source = "extends CharacterBody2D
-
-var mouse_on: bool = false
-
-func _mouse_enter() -> void:
-	mouse_on = true
-"
+[ext_resource type="PackedScene" uid="uid://cr8kbwvjnurwq" path="res://scenes/attr_panel.tscn" id="3_5y76p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h3s3n"]
 atlas = ExtResource("2_cecso")
@@ -77,13 +69,6 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2hsnj"]
 size = Vector2(16, 16)
 
-[sub_resource type="Curve" id="Curve_0mjly"]
-_data = [Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 1
-
-[sub_resource type="CurveTexture" id="CurveTexture_fb4t7"]
-curve = SubResource("Curve_0mjly")
-
 [node name="Character" type="Node2D"]
 position = Vector2(8, -8)
 script = ExtResource("1_21jlh")
@@ -92,7 +77,6 @@ script = ExtResource("1_21jlh")
 collision_layer = 0
 collision_mask = 0
 safe_margin = 0.001
-script = SubResource("GDScript_0f3dp")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Body"]
 sprite_frames = SubResource("SpriteFrames_r733v")
@@ -101,7 +85,9 @@ animation = &"idle"
 [node name="Collider" type="CollisionShape2D" parent="Body"]
 shape = SubResource("RectangleShape2D_2hsnj")
 
-[node name="Sprite2D" type="Sprite2D" parent="Body"]
-position = Vector2(1.43051e-06, 8)
-scale = Vector2(0.0625, 1)
-texture = SubResource("CurveTexture_fb4t7")
+[node name="AttributePanel" parent="." instance=ExtResource("3_5y76p")]
+z_index = 200
+offset_left = 12.0
+offset_top = -8.0
+offset_right = 44.0
+offset_bottom = 40.0

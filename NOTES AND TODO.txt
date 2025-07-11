@@ -1,0 +1,13 @@
+TODO:
+
+
+
+
+COMBAT:
+	Characters move in their initiative order
+		Initiative is a stat unique to each character (Higher number moves first)
+	Character may spend its turn doing any or all of the following:
+		Move up to its speed stat
+		Take actions by spending AP (AP is per character)
+	Alternatively a character may move themselves down the initiative order by passing their turn
+	

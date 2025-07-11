@@ -1,0 +1,44 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://b7yd6uxbryr3k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qpvl8"]
+bg_color = Color(0.467024, 0.292008, 0.149901, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pgk5y"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nkogy"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ppqyx"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqd1f"]
+bg_color = Color(0.466181, 0.466181, 0.466181, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[resource]
+MarginContainer/constants/margin_bottom = 4
+MarginContainer/constants/margin_left = 4
+MarginContainer/constants/margin_right = 4
+MarginContainer/constants/margin_top = 4
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_qpvl8")
+RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
+RichTextLabel/font_sizes/bold_font_size = 16
+RichTextLabel/font_sizes/normal_font_size = 12
+RichTextLabel/styles/background = SubResource("StyleBoxFlat_pgk5y")
+TabContainer/constants/side_margin = 0
+TabContainer/font_sizes/font_size = 16
+TabContainer/styles/panel = SubResource("StyleBoxFlat_nkogy")
+TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_ppqyx")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_oqd1f")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_oqd1f")

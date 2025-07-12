@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://w2jva63rasjr"]
+[gd_scene load_steps=21 format=3 uid="uid://w2jva63rasjr"]
 
 [ext_resource type="Script" path="res://scripts/character.gd" id="1_21jlh"]
 [ext_resource type="Texture2D" uid="uid://c8y16t7who1fw" path="res://assets/SGQ_Dungeon/characters/main/elf.png" id="2_cecso"]
 [ext_resource type="PackedScene" uid="uid://cr8kbwvjnurwq" path="res://scenes/attr_panel.tscn" id="3_5y76p"]
+[ext_resource type="Texture2D" uid="uid://d2n1b2jfajna2" path="res://assets/IndicationArrow.png" id="4_xe6xh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h3s3n"]
 atlas = ExtResource("2_cecso")
@@ -69,6 +70,56 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2hsnj"]
 size = Vector2(16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_u24lb"]
+atlas = ExtResource("4_xe6xh")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1k8p2"]
+atlas = ExtResource("4_xe6xh")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8psvn"]
+atlas = ExtResource("4_xe6xh")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_evs0n"]
+atlas = ExtResource("4_xe6xh")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gm4f5"]
+atlas = ExtResource("4_xe6xh")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7wbgi"]
+atlas = ExtResource("4_xe6xh")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_31aew"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u24lb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1k8p2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8psvn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_evs0n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gm4f5")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_7wbgi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Character" type="Node2D"]
 position = Vector2(8, -8)
 script = ExtResource("1_21jlh")
@@ -91,3 +142,10 @@ offset_left = 12.0
 offset_top = -8.0
 offset_right = 44.0
 offset_bottom = 40.0
+
+[node name="Selection Indicator" type="AnimatedSprite2D" parent="."]
+position = Vector2(-4.76837e-07, -12)
+scale = Vector2(0.4375, 0.4375)
+sprite_frames = SubResource("SpriteFrames_31aew")
+frame = 5
+frame_progress = 0.330966

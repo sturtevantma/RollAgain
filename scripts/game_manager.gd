@@ -18,7 +18,7 @@ func event_handler(event: InputEvent) -> void:
 			# Check which party member has been clicked on
 			if member.get_collider().shape.get_rect().has_point(event_pos - member.get_char().global_position):
 				print("Selected Character: ", member.c_name)
-				$Party.selected_char = member
+				$Party.select_character(member)
 				return
 		# Move character to new location if not selecting character
 		if $Party.selected_char:
@@ -26,6 +26,7 @@ func event_handler(event: InputEvent) -> void:
 	
 	# Deselect button press
 	if event.is_action_pressed("deselect"):
+		$Party.selected_char.is_selected = false
 		$Party.selected_char = null
 			
 func _input(event: InputEvent) -> void:

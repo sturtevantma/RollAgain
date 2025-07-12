@@ -52,6 +52,7 @@ func get_collider() -> CollisionShape2D:
 func _ready() -> void:
 	$Body.motion_mode = 1 # Some jank that i forgot what it did, might work without this, but would require intensive testing
 	$Body/Sprite.play("idle")
+	$"Selection Indicator".play("default")
 	self.update_stats()
 	pass
 
@@ -87,6 +88,7 @@ func update_stats():
 func _process(delta: float) -> void:
 	# Display Stats if Mouse is hovered
 	$AttributePanel.visible = self.get_collider().shape.get_rect().has_point(get_global_mouse_position() - self.get_char().global_position)
+	$"Selection Indicator".visible = is_selected
 
 # Called every physics tick
 # Locks character to grid after movement

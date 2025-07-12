@@ -23,6 +23,12 @@ func move_char(pos: Vector2i, map: Level) -> void:
 		print(selected_char.c_name," moved to: ", pos)
 		cam.update_camera(party_members) # update camera
 
+func select_character(c: Character):
+	c.is_selected = true
+	selected_char = c
+	for char in party_members:
+		if char != c:
+			char.is_selected = false
 
 func add_party_member() -> Character:
 # Add a new party member child: returns new Character object

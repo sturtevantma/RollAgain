@@ -1,18 +1,18 @@
 [gd_scene load_steps=6 format=3 uid="uid://8wt0g7lqgkkj"]
 
-[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_g5c0n"]
+[ext_resource type="Script" path="res://scripts/GameScripts/game_manager.gd" id="1_g5c0n"]
 [ext_resource type="PackedScene" uid="uid://c2uy2tym2xk11" path="res://scenes/level.tscn" id="1_q8bbm"]
-[ext_resource type="PackedScene" uid="uid://con3bbl3nd7wt" path="res://scenes/party.tscn" id="2_gwgc3"]
-[ext_resource type="Script" path="res://scripts/mouse_collider.gd" id="4_1olv3"]
+[ext_resource type="PackedScene" uid="uid://d1jaxlgsxptlr" path="res://scenes/PartyScenes/player_party.tscn" id="2_7q0ss"]
+[ext_resource type="Script" path="res://scripts/GameScripts/mouse_collider.gd" id="4_1olv3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nbdps"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_g5c0n")
 
-[node name="Level" parent="." instance=ExtResource("1_q8bbm")]
+[node name="PlayerParty" parent="." instance=ExtResource("2_7q0ss")]
 
-[node name="Party" parent="." instance=ExtResource("2_gwgc3")]
+[node name="Level" parent="." instance=ExtResource("1_q8bbm")]
 
 [node name="MouseCollider" type="CollisionShape2D" parent="."]
 scale = Vector2(0.1, 0.1)

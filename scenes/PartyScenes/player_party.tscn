@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1jaxlgsxptlr"]
+
+[ext_resource type="Script" path="res://scripts/PartyScripts/player_party.gd" id="1_w6amb"]
+[ext_resource type="Script" path="res://scripts/GameScripts/camera_handler.gd" id="2_mkdq2"]
+
+[node name="PlayerParty" type="Node2D"]
+script = ExtResource("1_w6amb")
+
+[node name="PartyCamera" type="Camera2D" parent="."]
+script = ExtResource("2_mkdq2")

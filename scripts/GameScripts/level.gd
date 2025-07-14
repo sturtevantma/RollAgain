@@ -28,4 +28,26 @@ const NUM_TO_ATLAS: Dictionary = {
 	6: "b_right_wall",  
 	7: "floor" 
 }
+
+# Level Attributes
+var combat: bool = true 		# Determines if this room is a combat room
+var boss: bool = false			# Determines if this room is a boss room
 # TODO: Much to be done here maybe
+
+# Creates enemy at pos
+func create_enemy(pos: Vector2) -> void:
+	var enemy = $EnemyParty.add_party_member()
+	enemy.global_position = pos
+	enemy.c_name = "EVIL GUY"
+	var s = enemy.ready
+	var spr = enemy.get_sprite()
+	pass
+	
+	
+
+# Spawns enemies, creates enemy party
+func _ready() -> void:
+	if self.combat:
+		# play combat music
+		for spawn in $Spawns.get_children(): # Spawn enemies
+			create_enemy(spawn.global_position)

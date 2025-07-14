@@ -1,4 +1,4 @@
-class_name PartyManager extends Node2D
+class_name Party extends Node2D
 
 
 @onready var cam = $PartyCamera
@@ -8,6 +8,10 @@ var movement_tween: Tween
 #var party_pos_rect: Array[Rect2] = []
 var selected_char: Character
 var level: Level
+
+func character_scene_path():
+	const character_path = "res://scenes/CharacterScenes/character.tscn"
+	return preload(character_path).instantiate()
 
 func move_char(pos: Vector2i, map: Level) -> void:
 	var tiles: TileMapLayer = map.find_child("Level") # TileMap containg room tiles
@@ -30,24 +34,10 @@ func select_character(c: Character):
 		if char != c:
 			char.is_selected = false
 
-func add_party_member() -> Character:
 # Add a new party member child: returns new Character object
-	var new_member = preload("res://scenes/character.tscn").instantiate()
+func add_party_member() -> Character:
+	# TODO: Add functionality to allow adding a CHOSEN character
+	var new_member = self.character_scene_path()
 	self.add_child(new_member)
 	party_members.append(new_member)
 	return new_member
-
-func _process(delta: float) -> void:
-	cam.update_camera(party_members)
-	
-	
-
-func _ready() -> void:
-	
-	# FOR TESTING PURPOSES
-	add_party_member()
-	var b = add_party_member()
-	b.c_name = "Steve"
-	b.is_magic = true
-	b.position = Vector2i(32, 32)
-	b.update_stats()

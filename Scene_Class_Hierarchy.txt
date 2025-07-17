@@ -1,0 +1,13 @@
+IDEAL HIERARCHY
+
+Game
+├── PlayerParty
+|	├── PlayerCharacter
+|		├── AttributePanel
+|
+├── EnemyParty
+|	├── EnemyCharacter
+|		├── AttributePanel
+|
+├── Level
+├── UI

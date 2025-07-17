@@ -1,7 +1,6 @@
 # An extension of the character class specific to player characters
 class_name PlayerCharacter extends Character
 
-
 # Overwrite stats functionality
 func update_stats():
 # Write attribute stats to the attribute panel

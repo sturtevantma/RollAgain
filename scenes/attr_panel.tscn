@@ -15,8 +15,8 @@ size_flags_vertical = 0
 [node name="PanelContainer" type="PanelContainer" parent="."]
 clip_contents = true
 layout_mode = 1
-offset_right = 72.0
-offset_bottom = 97.0
+offset_right = 8.0
+offset_bottom = 25.0
 scale = Vector2(0.5, 0.5)
 theme = ExtResource("1_ax46u")
 
@@ -32,13 +32,7 @@ size_flags_vertical = 0
 size_flags_stretch_ratio = 0.0
 theme = ExtResource("1_ax46u")
 bbcode_enabled = true
-text = "[color=white][b]Henry[/b]
-[color=white]16/16 [color=red]♥
-[color=white]8 [color=red]Damage
-[color=white]2 [color=cyan]AP
-[color=white]5 [color=yellow]Magic Damage
-[color=white]10 [color=orange]Initiative
-[color=white]25 [color=green]Speed
+text = "
 "
 fit_content = true
 scroll_active = false

@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://8wt0g7lqgkkj"]
 
 [ext_resource type="Script" path="res://scripts/GameScripts/game_manager.gd" id="1_g5c0n"]
-[ext_resource type="PackedScene" uid="uid://c2uy2tym2xk11" path="res://scenes/level.tscn" id="1_q8bbm"]
 [ext_resource type="PackedScene" uid="uid://d1jaxlgsxptlr" path="res://scenes/PartyScenes/player_party.tscn" id="2_7q0ss"]
 [ext_resource type="Script" path="res://scripts/GameScripts/mouse_collider.gd" id="4_1olv3"]
+[ext_resource type="PackedScene" uid="uid://bof5s1k5b1tl" path="res://scenes/PartyScenes/enemy_party.tscn" id="4_6ovy7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nbdps"]
 
@@ -12,9 +12,12 @@ script = ExtResource("1_g5c0n")
 
 [node name="PlayerParty" parent="." instance=ExtResource("2_7q0ss")]
 
-[node name="Level" parent="." instance=ExtResource("1_q8bbm")]
-
 [node name="MouseCollider" type="CollisionShape2D" parent="."]
 scale = Vector2(0.1, 0.1)
 shape = SubResource("CircleShape2D_nbdps")
 script = ExtResource("4_1olv3")
+
+[node name="EnemyParty" parent="." instance=ExtResource("4_6ovy7")]
+
+[connection signal="char_added" from="PlayerParty" to="." method="_on_player_party_char_added"]
+[connection signal="char_added" from="EnemyParty" to="." method="_on_enemy_party_char_added"]

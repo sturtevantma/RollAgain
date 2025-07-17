@@ -1,19 +1,30 @@
 class_name Character extends Node2D
 
+# Signals
+signal death(char)
+signal movement_stop()
+signal end_turn()
+
 # Internal Variables
-var to_pos: Vector2 		= Vector2.INF 	# Coordinate of desired movement location
-var to_pos_slice: Vector2 	= Vector2.INF 	# Vector from self to to_pos
-const MOVE_SPEED: float 	= 60			# Default character movement
-var is_selected: bool		= false			# Is this character currently selected?
+var to_pos: Vector2 				= Vector2.INF 	# Coordinate of desired movement location
+var to_pos_slice: Vector2 		= Vector2.INF 	# Vector from self to to_pos
+const MOVE_SPEED: float 			= 60			# Default character movement
+var is_selected: bool			= false			# Is this character currently selected?
+var is_enemy: bool				= false
+var enemies: Array[Character]	= []
 
 # Attributes
 var max_health: float	= 20.0		# Maximum hitpoints of a character
 var health: float		= 20.0		# Current hitpoints of a character
-var speed: int			= 25		# Number of spaces a character may use on their turn
+var max_speed: int		= 5			# Maximum number of spaces a character may move on their turn
+var speed: int			= 5			# Number of spaces a character has of remaining movement
 var is_magic: bool		= false		# Whether the character can use magic
 var c_name: String		= "Henry"	# Character's name
-var initiative: int		= 10		# Integer determining the turn order
+var initiative: int		= 10			# Integer determining the turn order
+var ap_regen: int		= 1			# Amount of AP regenerated at end of turn
+var max_ap: int			= 1			# Maximum AP that can be alotted to self
 var action_points: int	= 1			# Currency to spend on actions
+var range: int			= 1			# The maximum of tiles away a character can be to be hit
 
 # Modifiers
 var equipment: Array[Equipment] = []	# Array containing equipped items
@@ -21,6 +32,8 @@ var phys_dmg_bonus: float = 0.0			# Flat damage modifier for physical damage
 var mag_dmg_bonus: float = 0.0			# Flat damage modifier for magic damage
 var phys_dmg_mult: float = 1.0			# Phyisical damage multiplier
 var mag_dmg_mult: float = 1.0			# Magical damage multiplier
+var phys_dmg_reduc: float = 0			# Resistance amount to physical damage
+var mag_dmg_reduc: float = 0			# Resistance amount to magical damage
 
 # Initialize class
 func _init() -> void:
@@ -69,6 +82,7 @@ func move_char(move_to: Vector2i) -> void:
 		$Body/Sprite.flip_h = true
 	else:
 		$Body/Sprite.flip_h = false
+	self.update_stats()
 
 # Update the character attribute panel
 func update_stats():
@@ -77,10 +91,44 @@ func update_stats():
 	text = text + str(w, health, "/", max_health, "[color=red] ♥\n")
 	$AttributePanel/PanelContainer/Attributes/RichTextLabel.text = text
 
+# A function to attack an enemy
+func attack(target: Character):
+	if action_points >= 1:
+		self.action_points -= 1
+		var rng = RandomNumberGenerator.new()
+		var dmg = rng.randi_range(1,6)
+		target.add_damage(dmg + self.phys_dmg_bonus, false)
+	self.update_stats()
+
+# A function do deal damage to self
+func add_damage(dmg: int, mag_dmg: bool):
+	if mag_dmg:
+		self.health -= dmg * (1 - self.mag_dmg_reduc)
+	else:
+		self.health -= dmg * (1 - self.phys_dmg_reduc)
+	self.update_stats()
+	#if self.health <= 0:
+		#self.kill_self()
+
+func add_tint(r: int, g: int, b: int):
+	var spr = self.get_sprite()
+	spr.modulate.a = 1
+	spr.modulate.r = r
+	spr.modulate.g = g
+	spr.modulate.b = b
+
+func is_in_range(c: Character) -> bool:
+	return abs(c.global_position - self.global_position).length() <= 8 + 16 * self.range
+
+func run_turn(enemies: Array[Character]):
+	pass
+
 # Called every tick
 # Handles the visibility of the attribute panel
 func _process(delta: float) -> void:
 	# Display Stats if Mouse is hovered
+	if self.health <= 0:
+		$Body/Sprite.play("death")
 	$AttributePanel.visible = self.get_collider().shape.get_rect().has_point(get_global_mouse_position() - self.get_char().global_position)
 	$"Selection Indicator".visible = is_selected
 
@@ -93,9 +141,17 @@ func _physics_process(delta: float) -> void:
 	if (to_pos - self.position).length() <= 0.8:
 		self.position = self.position.snapped(Vector2(16, 16))
 		to_pos = Vector2.INF
+		movement_stop.emit()
 		$Body/Sprite.play("idle")
 	
 	# Move Character incrementally and at a constant speed
 	elif to_pos != Vector2.INF:
 		var v = MOVE_SPEED * delta
 		self.position = self.position + to_pos_slice.normalized() * v
+
+
+func _on_sprite_animation_looped() -> void:
+	if $Body/Sprite.animation == &"death":
+		death.emit(self)
+		self.visible = false
+		

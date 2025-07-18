@@ -29,11 +29,19 @@ const NUM_TO_ATLAS: Dictionary = {
 	7: "floor" 
 }
 
+const ID_TO_NAME: Array[String] = ["", "floor", "wall"]
+
 # Level Attributes
 var combat: bool = true 		# Determines if this room is a combat room
 var boss: bool = false			# Determines if this room is a boss room
 var difficulty: int = 0			# Level difficulty
 # TODO: Much to be done here maybe
+
+func get_tile(pos: Vector2) -> String:
+	var tiles: TileMapLayer = $Level # TileMap containg room tiles
+	var tile_coord = tiles.local_to_map(tiles.to_local(pos)) # Coordinates of selected tile
+	var tile_type = tiles.get_cell_source_id(tile_coord) # Atlas id of selected tile
+	return ID_TO_NAME[tile_type]
 
 func get_spawns() -> Array[Node]:
 	return $Spawns.get_children()

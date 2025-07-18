@@ -18,7 +18,8 @@ func run_turn(enemies: Array[Character]):
 	var dest = closest.global_position - self.global_position
 	dest.x += 16 if dest.x < 0 else -16
 	#dest.y += 16 if dest.y < 0 else -16
-	move_char(self.global_position + dest)
+	if dest.length() <= self.speed * 16:
+		move_char(self.global_position + dest)
 	
 	## If there is an enemy in range attack it
 	#if $Body/Sprite.animation == &"idle":

@@ -11,6 +11,9 @@ var movement_tween: Tween
 var selected_char: Character
 var level: Level
 
+func _is_legal_position(delta: float, pos: Vector2):
+	if !(level.get_tile(pos) == "floor"):
+		selected_char.undo_move(delta)
 
 func character_scene_path():
 	const character_path = "res://scenes/CharacterScenes/character.tscn"
@@ -38,6 +41,9 @@ func move_char(pos: Vector2i, map: Level, combat: bool) -> void:
 		cam.update_camera(party_members) # update camera
 
 func select_character(c: Character):
+	if self.selected_char:
+		if self.selected_char.to_pos != Vector2.INF:
+			return # Cannot change selected character until done moving
 	c.is_selected = true
 	selected_char = c
 	for char in party_members:
@@ -51,4 +57,5 @@ func add_party_member() -> Character:
 	self.add_child(new_member)
 	party_members.append(new_member)
 	char_added.emit(new_member)
+	new_member.position_check.connect(_is_legal_position)
 	return new_member

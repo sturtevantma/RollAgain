@@ -11,6 +11,9 @@ var level: Level
 @onready var enemy_party: EnemyParty = $EnemyParty
 
 func begin_combat():
+	player_party.level = self.level
+	enemy_party.level = self.level
+	
 	# Initiates a combat room
 	for spt in level.get_spawns():
 		var e: EnemyCharacter = enemy_party.add_party_member()

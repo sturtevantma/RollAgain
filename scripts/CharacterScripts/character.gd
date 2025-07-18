@@ -4,10 +4,12 @@ class_name Character extends Node2D
 signal death(char)
 signal movement_stop()
 signal end_turn()
+signal position_check(delta, pos)
 
 # Internal Variables
 var to_pos: Vector2 				= Vector2.INF 	# Coordinate of desired movement location
 var to_pos_slice: Vector2 		= Vector2.INF 	# Vector from self to to_pos
+var last_pos: Vector2			= Vector2.INF
 const MOVE_SPEED: float 			= 60			# Default character movement
 var is_selected: bool			= false			# Is this character currently selected?
 var is_enemy: bool				= false
@@ -34,6 +36,11 @@ var phys_dmg_mult: float = 1.0			# Phyisical damage multiplier
 var mag_dmg_mult: float = 1.0			# Magical damage multiplier
 var phys_dmg_reduc: float = 0			# Resistance amount to physical damage
 var mag_dmg_reduc: float = 0			# Resistance amount to magical damage
+
+func update_attributes(attr: Dictionary) -> void:
+	for i in attr:
+		set(i, attr[i])
+
 
 # Initialize class
 func _init() -> void:
@@ -148,7 +155,12 @@ func _physics_process(delta: float) -> void:
 	elif to_pos != Vector2.INF:
 		var v = MOVE_SPEED * delta
 		self.position = self.position + to_pos_slice.normalized() * v
+		position_check.emit(delta, self.position)
 
+func undo_move(delta: float):
+	var v = MOVE_SPEED * delta
+	self.position = self.position - to_pos_slice.normalized() * 16
+	to_pos = self.position
 
 func _on_sprite_animation_looped() -> void:
 	if $Body/Sprite.animation == &"death":
